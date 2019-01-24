@@ -1,0 +1,8 @@
+{
+    "mongoHost": "cluster-mongodb-shard-00-00-bzmuw.gcp.mongodb.net:27017,cluster-mongodb-shard-00-01-bzmuw.gcp.mongodb.net:27017,cluster-mongodb-shard-00-02-bzmuw.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster-MongoDB-shard-0&authSource=admin&retryWrites=true",
+    "mongoPort": "27017",
+    "mongoDatabase": "hw6",
+    "mongoUser": "luke",
+    "mongoPass": "Ps55w0rd"
+}
+

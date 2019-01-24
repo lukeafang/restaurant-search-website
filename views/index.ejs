@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Restaurant Search</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+    <style>
+
+    </style>
+</head>
+
+<body class="text-center">
+    <div class="modal" tabindex="-1" role="dialog" id="msgModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="msgModal_title">Message Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="msgModal_body">Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="searchModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Search By</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-Name"
+                                role="tab" aria-controls="nav-Name" aria-selected="true">Name</a>
+                            <a class="nav-item nav-link" id="nav-Borough-tab" data-toggle="tab" href="#nav-Borough"
+                                role="tab" aria-controls="nav-Borough" aria-selected="false">Borough</a>
+                            <a class="nav-item nav-link" id="nav-Cuisine-tab" data-toggle="tab" href="#nav-Cuisine"
+                                role="tab" aria-controls="nav-Cuisine" aria-selected="false">Cuisine</a>
+                            <a class="nav-item nav-link" id="nav-Address-tab" data-toggle="tab" href="#nav-Address"
+                                role="tab" aria-controls="nav-Address" aria-selected="false">Address</a>
+                            <a class="nav-item nav-link" id="nav-Grade-tab" data-toggle="tab" href="#nav-Grade" role="tab"
+                                aria-controls="nav-Grade" aria-selected="false">Grade</a>
+                            <a class="nav-item nav-link" id="nav-ID-tab" data-toggle="tab" href="#nav-ID" role="tab"
+                                aria-controls="nav-ID" aria-selected="false">ID</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-Name" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Name: </span>
+                                </div>
+                                <input id="searchModal_searchName" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="button" data-dismiss="modal" id="searchModal_ByNameBtn">Search</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Borough" role="tabpanel" aria-labelledby="nav-Borough-tab">
+                            <br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Borough: </span>
+                                </div>
+                                <input id="searchModal_searchBorough" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="button" data-dismiss="modal" id="searchModal_ByBoroughBtn">Search</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Cuisine" role="tabpanel" aria-labelledby="nav-Cuisine-tab">
+                            <br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Cuisine: </span>
+                                </div>
+                                <input id="searchModal_searchCuisine" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="button" data-dismiss="modal" id="searchModal_ByCuisineBtn">Search</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Address" role="tabpanel" aria-labelledby="nav-Address-tab">
+                            <br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-Building">Building</span>
+                                </div>
+                                <input id="searchModal_searchBuilding" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-Building">Street</span>
+                                </div>
+                                <input id="searchModal_searchStreet" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-Building">Zipcode</span>
+                                </div>
+                                <input id="searchModal_searchZipcode" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="button" data-dismiss="modal" id="searchModal_ByAddressBtn">Search</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-Grade" role="tabpanel" aria-labelledby="nav-Grade-tab">
+                            <br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Grade: </span>
+                                </div>
+                                <input id="searchModal_searchGrade" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="button" data-dismiss="modal" id="searchModal_ByGradeBtn">Search</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-ID" role="tabpanel" aria-labelledby="nav-ID-tab">
+                            <br>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Restaurant ID: </span>
+                                </div>
+                                <input id="searchModal_searchID" type="text" class="form-control" aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" type="button" data-dismiss="modal" id="searchModal_ByIDBtn">Search</button>
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="deleteModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Restaurant</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="container">
+                    <br>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Restaurant ID: </span>
+                        </div>
+                        <input id="deleteModal_restaurantID" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" data-dismiss="modal" id="deleteModal_deleteBtn">Delete</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="addConfirmModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Restaurant</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="container">
+                    <br>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Restaurant ID: </span>
+                        </div>
+                        <input id="addConfirmModal_restaurantID" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" data-dismiss="modal" id="addConfirmModal_addBtn">Add</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="updateModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Restaurant</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="container">
+                    <br>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Restaurant ID: </span>
+                        </div>
+                        <input id="updateModal_restaurantID" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Name: </span>
+                        </div>
+                        <input id="updateModal_name" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Borough: </span>
+                        </div>
+                        <input id="updateModal_borough" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Cuisine: </span>
+                        </div>
+                        <input id="updateModal_cuisine" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Address: </span>
+                        </div>
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Building: </span>
+                        </div>
+                        <input id="updateModal_building" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Street: </span>
+                        </div>
+                        <input id="updateModal_street" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Zip: </span>
+                        </div>
+                        <input id="updateModal_zipcode" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" data-dismiss="modal" id="updateModal_updateBtn">Update</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="addModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Restaurant</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="container">
+                    <br>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Restaurant ID: </span>
+                        </div>
+                        <input id="addModal_restaurantID" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Name: </span>
+                        </div>
+                        <input id="addModal_name" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Borough: </span>
+                        </div>
+                        <input id="addModal_borough" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Cuisine: </span>
+                        </div>
+                        <input id="addModal_cuisine" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Address: </span>
+                        </div>
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Building: </span>
+                        </div>
+                        <input id="addModal_building" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Street: </span>
+                        </div>
+                        <input id="addModal_street" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Zip: </span>
+                        </div>
+                        <input id="addModal_zipcode" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Grade: </span>
+                        </div>
+                        <input id="addModal_grade" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Score: </span>
+                        </div>
+                        <input id="addModal_score" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" data-dismiss="modal" id="addModal_addBtn">Add</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="addGradeModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Grade</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="container">
+                    <br>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Restaurant ID: </span>
+                        </div>
+                        <input id="addGradeModal_restaurantID" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Grade: </span>
+                        </div>
+                        <input id="addGradeModal_grade" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Score: </span>
+                        </div>
+                        <input id="addGradeModal_score" type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" data-dismiss="modal" id="addGradeModal_addBtn">Add</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <nav class="nav">
+            <h3>Restaurant Search</h3>
+            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link" href="/contact">Contact</a>
+        </nav>
+
+        <div class="container">
+            <h1 class="cover-heading">Restaurant Information</h1>
+            <br>
+            <button type="button" class="btn btn-primary" id="searchBtn">Search</button>
+            <button type="button" class="btn btn-success" id="addBtn">Add Restaurant</button>
+            <button type="button" class="btn btn-success" id="addGradeBtn">Add Grade</button>
+            <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
+
+            <br><br>
+            <div>
+                <strong>Show params : </strong>&nbsp&nbsp cuisine:
+                <input type="checkbox" id="cuisineChk">&nbsp
+                borough:
+                <input type="checkbox" id="boroughChk">&nbsp
+                address:
+                <input type="checkbox" id="addressChk">&nbsp
+                grade:
+                <input type="checkbox" id="gradeChk">&nbsp
+                paging:
+                <input type="checkbox" id="pagingChk">&nbsp
+            </div>
+            <div id="jsGrid"></div>
+            <br><br>
+        </div>
+
+
+    </div>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>Version 1.0.0 by <a href="#">@kuochi Fang</a>.</p>
+        </div>
+    </footer>
+
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+</body>
+
+<script>
+    var visible_Name = true;
+    var visible_cuisine = true;
+    var visible_borough = true;
+    var visible_Address = true;
+    var visible_grade = true;
+
+    var isPaging = true;
+    var restaurantList = [];
+
+    $(document).ready(() => {
+        $("#jsGrid").empty();
+
+        var item = $('#cuisineChk')[0];
+        item.checked = visible_cuisine;
+
+        item = $('#boroughChk')[0];
+        item.checked = visible_borough;
+        item = $('#addressChk')[0];
+        item.checked = visible_Address;
+        item = $('#gradeChk')[0];
+        item.checked = visible_grade;
+        item = $('#pagingChk')[0];
+        item.checked = isPaging;
+
+    });
+
+    $(document).on('click', '#searchBtn', function () {
+        $('#searchModal_searchName').val('');
+        $('#searchModal_searchBorough').val('');
+        $('#searchModal_searchCuisine').val('');
+
+        $('#searchModal_searchBuilding').val('');
+        $('#searchModal_searchStreet').val('');
+        $('#searchModal_searchZipcode').val('');
+
+        $('#searchModal_searchGrade').val('');
+
+        $('#searchModal').modal('show');
+    });
+
+    $(document).on('click', '#searchModal_ByNameBtn', function () {
+        // get name
+        var name = $('#searchModal_searchName').val();
+        if (name.length <= 0) {
+            alert('Error. invalid name!');
+            return;
+        }
+        $.ajax({
+            url: window.location.href,
+            data: { 'search': true, 'seachByName': true, name: name },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                restaurantList = data;
+                refreshTable(true);
+            }
+        });
+    });
+
+    $(document).on('click', '#searchModal_ByBoroughBtn', function () {
+        // get name
+        var borough = $('#searchModal_searchBorough').val();
+        if (borough.length <= 0) {
+            alert('Error. invalid borough!');
+            return;
+        }
+        $.ajax({
+            url: window.location.href,
+            data: { 'search': true, 'seachByBorough': true, borough: borough },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                restaurantList = data;
+                refreshTable(true);
+            }
+        });
+    });
+
+    $(document).on('click', '#searchModal_ByCuisineBtn', function () {
+        // get name
+        var cuisine = $('#searchModal_searchCuisine').val();
+        if (cuisine.length <= 0) {
+            alert('Error. invalid cuisine!');
+            return;
+        }
+        $.ajax({
+            url: window.location.href,
+            data: { 'search': true, 'seachByCuisine': true, cuisine: cuisine },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                restaurantList = data;
+                refreshTable(true);
+            }
+        });
+    });
+
+    $(document).on('click', '#searchModal_ByAddressBtn', function () {
+        // get name
+        var building = $('#searchModal_searchBuilding').val();
+        var street = $('#searchModal_searchStreet').val();
+        var zipcode = $('#searchModal_searchZipcode').val();
+
+        var existValue = false;
+
+        if (building.length != 0) { existValue = true; }
+        if (street.length != 0) { existValue = true; }
+        if (zipcode.length != 0) { existValue = true; }
+
+        if (existValue == false) {
+            alert('Error. Please input at least one value.');
+            return;
+        }
+        $.ajax({
+            url: window.location.href,
+            data: { 'search': true, 'seachByAddress': true, building, street, zipcode },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                restaurantList = data;
+                refreshTable(true);
+            }
+        });
+    });
+
+    $(document).on('click', '#searchModal_ByGradeBtn', function () {
+        // get name
+        var grade = $('#searchModal_searchGrade').val();
+
+        if (grade.length <= 0) {
+            alert('Error. invalid grade!');
+            return;
+        }
+
+        $.ajax({
+            url: window.location.href,
+            data: { 'search': true, 'seachByGrade': true, grade },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                restaurantList = data;
+                refreshTable(true);
+            }
+        });
+    });
+
+    $(document).on('click', '#searchModal_ByIDBtn', function () {
+        // get name
+        var id = $('#searchModal_searchID').val();
+
+        if (id.length <= 0) {
+            alert('Error. invalid ID!');
+            return;
+        }
+
+        $.ajax({
+            url: window.location.href,
+            data: { 'search': true, 'seachByID': true, id },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                // console.log(data);
+                restaurantList = data;
+                refreshTable(true);
+            }
+        });
+    });
+
+    $(document).on('click', '#addBtn', function () {
+        $('#addConfirmModal').modal('show');
+        return;
+    });
+
+    $(document).on('click', '#addConfirmModal_addBtn', function () {
+        //check restaurant ID exist or not,
+        var restaruantID = $('#addConfirmModal_restaurantID').val();
+        if (restaruantID.length == 0) {
+            $('#msgModal_title').text('Error Message.');
+            $('#msgModal_body').text('Error! invalid restaurant ID.');
+            $('#msgModal').modal('show');
+            return;
+        }
+        $.ajax({
+            url: window.location.href,
+            data: { 'checkRestaurantExist': true, 'restaruantID': restaruantID },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                var msg = data.msg;
+                var restaurant = data.doc;
+                if (msg == 'exist') {
+                    // alert('exist');
+                    // pop up update restaurant window
+                    $('#updateModal_restaurantID').val(restaruantID);
+
+                    $('#updateModal_name').val(restaurant.name);
+                    $('#updateModal_borough').val(restaurant.borough);
+                    $('#updateModal_cuisine').val(restaurant.cuisine);
+
+                    $('#updateModal_building').val(restaurant.address.building);
+                    $('#updateModal_street').val(restaurant.address.street);
+                    $('#updateModal_zipcode').val(restaurant.address.zipcode);
+
+                    $('#updateModal').modal('show');
+                } else {
+                    // pop up add new restaurant window
+                    $('#addModal_restaurantID').val(restaruantID);
+
+                    $('#addModal_name').val('');
+                    $('#addModal_borough').val('');
+                    $('#addModal_cuisine').val('');
+
+                    $('#addModal_building').val('');
+                    $('#addModal_street').val('');
+                    $('#addModal_zipcode').val('');
+
+                    $('#addModal_grade').val('');
+                    $('#addModal_score').val('');
+
+                    $('#addModal').modal('show');
+                }
+            }
+        });
+        return;
+    });
+
+    $(document).on('click', '#addModal_addBtn', function () {
+        var restaruantID = $('#addModal_restaurantID').val();
+
+        var name = $('#addModal_name').val();
+        var borough = $('#addModal_borough').val();
+        var cuisine = $('#addModal_cuisine').val();
+
+        var building = $('#addModal_building').val();
+        var street = $('#addModal_street').val();
+        var zipcode = $('#addModal_zipcode').val();
+
+        var grade = $('#addModal_grade').val();
+        var score = $('#addModal_score').val();
+
+        // check input fied are valid
+        var valid = true;
+        if (name.length <= 0) { valid = false; }
+        if (borough.length <= 0) { valid = false; }
+        if (cuisine.length <= 0) { valid = false; }
+        if (building.length <= 0) { valid = false; }
+        if (street.length <= 0) { valid = false; }
+        if (grade.length <= 0) { valid = false; }
+        if (score.length <= 0) { valid = false; }
+
+        if (valid == false) {
+            $('#msgModal_title').text('Error Message.');
+            $('#msgModal_body').text('invalid input data. Please fill up all field.');
+            $('#msgModal').modal('show');
+            return;
+        }
+
+        $.ajax({
+            url: window.location.href,
+            data: { 'add': true, restaruantID, name, borough, cuisine, building, street, zipcode, grade, score },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                var msg = data.msg;
+                if (msg == 'error') {
+                    $('#msgModal_title').text('Error Message.');
+                    $('#msgModal_body').text(data.errorMsg);
+                    $('#msgModal').modal('show');
+                } else {
+                    $('#msgModal_title').text('Operation Successful');
+                    $('#msgModal_body').text('Added new one!');
+                    $('#msgModal').modal('show');
+                }
+            }
+        });
+
+    });
+
+    $(document).on('click', '#updateModal_updateBtn', function () {
+        // get new data
+        var restaruantID = $('#updateModal_restaurantID').val();
+        var name = $('#updateModal_name').val();
+        var borough = $('#updateModal_borough').val();
+        var cuisine = $('#updateModal_cuisine').val();
+        var building = $('#updateModal_building').val();
+        var street = $('#updateModal_street').val();
+        var zipcode = $('#updateModal_zipcode').val();
+
+        // check input fied are valid
+        var valid = true;
+        if (name.length <= 0) { valid = false; }
+        if (borough.length <= 0) { valid = false; }
+        if (cuisine.length <= 0) { valid = false; }
+        if (building.length <= 0) { valid = false; }
+        if (street.length <= 0) { valid = false; }
+
+        if (valid == false) {
+            $('#msgModal_title').text('Error Message.');
+            $('#msgModal_body').text('invalid input data. Please fill up all field.');
+            $('#msgModal').modal('show');
+            return;
+        }
+
+        $.ajax({
+            url: window.location.href,
+            data: { 'update': true, restaruantID, name, borough, cuisine, building, street, zipcode },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                var msg = data.msg;
+                if (msg == 'error') {
+                    $('#msgModal_title').text('Error Message.');
+                    $('#msgModal_body').text(data.errorMsg);
+                    $('#msgModal').modal('show');
+                } else {
+                    $('#msgModal_title').text('Operation Successful');
+                    $('#msgModal_body').text('Restaurant Information Updated.');
+                    $('#msgModal').modal('show');
+                }
+            }
+        });
+
+    });
+
+    $(document).on('click', '#deleteBtn', function () {
+        $('#deleteModal').modal('show');
+        return;
+    });
+
+    $(document).on('click', '#deleteModal_deleteBtn', function () {
+        var restaruantID = $('#deleteModal_restaurantID').val();
+        if (restaruantID.length <= 0) {
+            $('#msgModal_title').text('Error Message.');
+            $('#msgModal_body').text('valid ID');
+            $('#msgModal').modal('show');
+            return;
+        }
+        $.ajax({
+            url: window.location.href,
+            data: { 'delete': true, 'restaruantID': restaruantID },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                if (data == "deleted") {
+                    $('#msgModal_title').text('Operation Successful');
+                    $('#msgModal_body').text('Restaurant deleted!');
+                    $('#msgModal').modal('show');                    
+                } else {
+                    $('#msgModal_title').text('Error Message.');
+                    $('#msgModal_body').text(data);
+                    $('#msgModal').modal('show');
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#addGradeBtn', function () {
+        $('#addGradeModal').modal('show');
+    });
+
+    $(document).on('click', '#addGradeModal_addBtn', function () {
+        var restaruantID = $('#addGradeModal_restaurantID').val();
+        var grade = $('#addGradeModal_grade').val();
+        var score = $('#addGradeModal_score').val();
+
+        var isValid = true;
+        if (restaruantID.length <= 0) { isValid = false; }
+        if (grade.length <= 0) { isValid = false; }
+        if (score.length <= 0) { isValid = false; }
+
+        if (isValid == false) {
+            $('#msgModal_title').text('Error Message.');
+            $('#msgModal_body').text('Add Error. Invalid Input value.');
+            $('#msgModal').modal('show');
+            return;
+        }
+
+        $.ajax({
+            url: window.location.href,
+            data: { 'addGrade': true, restaruantID, grade, score },
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                var msg = data.msg;
+                if (msg == 'error') {
+                    $('#msgModal_title').text('Error Message.');
+                    $('#msgModal_body').text(data.errorMsg);
+                    $('#msgModal').modal('show');
+                } else {
+                    $('#msgModal_title').text('Operation Successful');
+                    $('#msgModal_body').text('Added new grade of Restaurant!');
+                    $('#msgModal').modal('show');  
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#cuisineChk', function () {
+        refreshTable(false);
+    });
+
+    $(document).on('click', '#boroughChk', function () {
+        refreshTable(false);
+    });
+
+    $(document).on('click', '#addressChk', function () {
+        refreshTable(false);
+    });
+
+    $(document).on('click', '#gradeChk', function () {
+        refreshTable(false);
+    });
+
+    $(document).on('click', '#pagingChk', function () {
+        refreshTable(false);
+    });
+
+    function refreshTable(isReset) {
+        if ($('#cuisineChk').is(':checked')) { visible_cuisine = true; }
+        else { visible_cuisine = false; }
+        if ($('#boroughChk').is(':checked')) { visible_borough = true; }
+        else { visible_borough = false; }
+        if ($('#addressChk').is(':checked')) { visible_Address = true; }
+        else { visible_Address = false; }
+        if ($('#gradeChk').is(':checked')) { visible_grade = true; }
+        else { visible_grade = false; }
+        if ($('#pagingChk').is(':checked')) { isPaging = true; }
+        else { isPaging = false; }
+
+        $("#jsGrid").jsGrid({
+            width: "100%",
+            height: "500px",
+            noDataContent: "No restaurants found for selected filters",
+
+            sorting: true,
+            // paging: true,
+            paging: isPaging,
+            pageSize: 5,
+            data: restaurantList,
+            fields: [
+                { name: "index", type: "number", title: "#", width: 10, align: "center" },
+                { name: "restaurant_id", type: "text", width: 36, visible: true },
+                { name: "name", type: "text", title: "Name", width: 35, visible: visible_Name },
+                { name: "cuisine", type: "text", width: 33, visible: visible_cuisine },
+                { name: "borough", type: "text", width: 33, visible: visible_borough },
+                { name: "address.building", type: "text", title: "A.building", width: 33, visible: visible_Address },
+                { name: "address.street", type: "text", title: "A.street", width: 33, visible: visible_Address },
+                { name: "address.zipcode", type: "text", title: "A.zipcode", width: 30, visible: visible_Address },
+                { name: "grade_Summary", type: "text", title: "Latest comment", width: 90, visible: visible_grade },
+            ]
+        });
+        if (isReset == true) {
+            $("#jsGrid").jsGrid("reset");
+        }
+
+    }
+</script>
+
+</html>

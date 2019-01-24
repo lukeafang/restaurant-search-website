@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Restaurant Search</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="/assets/css/cover.css" rel="stylesheet"> -->
+    <style>
+        
+    </style>
+  </head>
+
+  <body class="text-center">
+        <div class="modal fade" role="dialog" tabindex="-1" id="searchModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Search Restaurant</h4><button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label>Room Name:</label>
+                                    <input id="createRoomModal_roomName" type="text" class="form-control">
+                                </div>
+                                <label>Select Topic:</label><br>
+                                <div id="modal_topic_select">
+                                </div><br>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Description: </span>
+                                    </div>
+                                    <textarea class="form-control" aria-label="With textarea" id="roomDesc"></textarea>
+                                </div>
+    
+    
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="button" data-dismiss="modal" id="createRoomModal_createBtn">Add</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal">Dismiss</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <nav class="nav">
+                        <h3>Restaurant Search</h3>
+                            <a class="nav-link active" href="/">Home</a>
+                            <a class="nav-link" href="/contact">Contact</a>
+                </nav>
+
+                <div class="container">
+                    <h1 class="cover-heading">Contact Information</h1>
+                    <br>  
+                    <p>Author: Kuochi Fang</p>
+                    <p>Email: fang5@marshall.edu</p>
+
+                </div>
+
+
+            </div>
+
+            <footer class="mastfoot mt-auto">
+                    <div class="inner">
+                      <p>Version 1.0.0 by <a href="#"">@kuochi Fang</a>.</p>
+                    </div>
+            </footer>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+    </script>
+  </body>
+</html>

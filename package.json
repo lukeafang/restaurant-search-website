@@ -1,0 +1,20 @@
+{
+  "name": "restaurant-search-website",
+  "version": "1.0.0",
+  "description": "searching restaurant information from database",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.9",
+    "nconf": "^0.10.0"
+  }
+}
